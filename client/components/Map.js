@@ -64,7 +64,7 @@ export class MapContainer extends Component {
   };
 
   render() {
-    const center = { lat: 37.7511816, lng: -122.5076526 };
+    const sanfrancisco = { lat: 37.755704, lng: -122.437344 };
 
     return (
       <div>
@@ -84,10 +84,9 @@ export class MapContainer extends Component {
           <div id="mapframe">
             <Map
               google={this.props.google}
-              zoom={12}
+              zoom={13}
               style={mapStyles}
-              initialCenter={center}
-              // bounds={bounds}
+              initialCenter={sanfrancisco}
               onClick={this.onMapClicked}
             >
               {this.props.data[1].map((info, index) => {

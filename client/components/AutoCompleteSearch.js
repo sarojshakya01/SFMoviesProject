@@ -33,8 +33,6 @@ export default class AutoCompleteSearch extends React.Component {
   };
 
   selectedText(value) {
-    let data = [];
-    data.push(value);
     this.setState(() => ({
       text: value,
       suggestions: [],

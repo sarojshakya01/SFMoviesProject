@@ -83,7 +83,7 @@ router.get("/maps", function (req, res) {
     if (err) res.send(err);
     // res.json(movies);
     console.log(movies);
-  }).limit(5);
+  });
 });
 
 module.exports = router;
