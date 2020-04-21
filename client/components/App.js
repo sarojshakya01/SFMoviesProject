@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import AutoCompletedText from "./AutoCompletedText";
-import DataTable from "./DataTable";
-import "../css/App.css";
 import axios from "axios";
+import AutoCompleteSearch from "./AutoCompleteSearch";
+import DataTable from "./DataTable";
+import "../css/index.css";
 
 window.$movies = [];
 
@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <AutoCompletedText changeState={this.changeState} />
+        <AutoCompleteSearch changeState={this.changeState} />
         <DataTable data={this.state.data} />
       </div>
     );

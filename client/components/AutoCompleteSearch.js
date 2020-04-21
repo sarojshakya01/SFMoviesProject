@@ -2,7 +2,7 @@ import React from "react";
 import "../css/App.css";
 import axios from "axios";
 
-export default class AutoCompletedText extends React.Component {
+export default class AutoCompleteSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +14,7 @@ export default class AutoCompletedText extends React.Component {
   onTextChange = (e) => {
     const value = e.target.value.toLowerCase();
     let suggestions = [];
-    if (value == "") {
+    if (value === "") {
       const that = this;
       axios.get("/movies?title=" + value).then(function (response) {
         that.props.changeState(response.data);

@@ -42477,7 +42477,7 @@ var MapContainer = /*#__PURE__*/function (_Component) {
             key: "marker_" + info.title + index.toString(),
             onClick: _this2.onMarkerClick,
             title: info.locations,
-            moviename: info.title,
+            moviename: _this2.state.movie,
             location: info.locations,
             funfact: info.fun_facts,
             prodcomp: info.production_company,
