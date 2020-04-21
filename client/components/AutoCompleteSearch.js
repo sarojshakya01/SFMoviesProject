@@ -1,5 +1,4 @@
 import React from "react";
-import "../css/App.css";
 import axios from "axios";
 
 export default class AutoCompleteSearch extends React.Component {

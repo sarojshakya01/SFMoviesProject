@@ -4,7 +4,7 @@ module.exports = {
   entry: "./client/index.js",
   output: {
     path: path.join(__dirname, "client"),
-    publicPath: "/clinet/",
+    publicPath: "/client/",
     filename: "bundle.js",
   },
   devtool: "source-map",
