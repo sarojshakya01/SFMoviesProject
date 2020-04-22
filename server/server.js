@@ -1,13 +1,14 @@
-var express = require("express");
-var router = require("./routes/routes.js");
-var path = require("path");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
+const express = require("express");
+const router = require("./routes/routes.js");
+const path = require("path");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-var app = express();
+const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../client"));
+
 app.use(express.static(path.join(__dirname, "../client")));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
@@ -23,6 +24,7 @@ mongoose
     console.log(err);
   });
 
+// used as alternative of mangoose for testing purpose
 // const MongoClient = require("mongodb").MongoClient;
 // MongoClient.connect(uri, { useUnifiedTopology: true }, function (err, db) {
 //   if (err) throw err;
@@ -46,11 +48,21 @@ mongoose
 //       db.close();
 //     });
 // });
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
+
+const db = mongoose.connection;
+
+db.on(
+  "error",
+  console.error.bind(
+    console,
+    "Database Connection Error at 127.0.0.1:27017/SFData"
+  )
+);
 
 db.once("open", function (callback) {
-  console.log("Connection Successfull");
+  console.log(
+    "Database 'SFDtata' Connected Successfully at 127.0.0.1:27017/SFData"
+  );
 });
 
 app.use("/", router);

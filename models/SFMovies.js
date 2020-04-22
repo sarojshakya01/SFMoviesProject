@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var SFmoviesSchema = new Schema({
+const SFmoviesSchema = new Schema({
   title: String,
   release_year: String,
   locations: String,

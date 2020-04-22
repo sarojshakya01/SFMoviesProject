@@ -1,10 +1,9 @@
-var express = require("express");
-var router = express.Router();
-var bodyParser = require("body-parser");
-var SFMovies = require("../../models/SFMovies");
-var SFMov = require("../../models/SFMov");
-var Movies = require("../../models/Movies");
-var SFMoviesDetail = require("../../models/SFMoviesDetail");
+const express = require("express");
+const router = express.Router();
+const SFMovies = require("../../models/SFMovies");
+const SFMov = require("../../models/SFMov");
+const Movies = require("../../models/Movies");
+const SFMoviesDetail = require("../../models/SFMoviesDetail");
 
 router.get("/", function (req, res) {
   res.render("index");

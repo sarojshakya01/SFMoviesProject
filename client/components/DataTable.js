@@ -37,6 +37,7 @@ export default class DataTable extends React.Component {
     );
   }
 }
+
 const RenderRow = (props) => {
   return props.data.map((data, index) => {
     if (index == 0) {

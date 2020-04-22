@@ -10,26 +10,31 @@ export default class AutoCompleteSearch extends React.Component {
     };
   }
 
-  onTextChange = (e) => {
-    const value = e.target.value.toLowerCase();
+  onTextChange = (elem) => {
+    const value = elem.target.value.toLowerCase();
     let suggestions = [];
-    if (value === "") {
-      const that = this;
-      axios.get("/movies?title=" + value).then(function (response) {
-        that.props.changeState(response.data);
-      });
-    } else {
-      if (value.length > 0) {
+    const that = this;
+    axios.get("/movies?title=").then(function (response) {
+      that.props.changeState(response.data);
+
+      for (var i = 0; i < response.data.length; i++) {
+        suggestions.push(response.data[i].title);
+      }
+
+      if (value === "") {
+        suggestions = suggestions;
+      } else if (value.length > 0) {
         const regex = new RegExp(value);
-        suggestions = window.$movies
+        suggestions = suggestions
           .sort()
           .filter((v) => regex.test(v.toLowerCase()));
       }
-    }
-    this.setState(() => ({
-      suggestions,
-      text: value,
-    }));
+
+      that.setState(() => ({
+        suggestions,
+        text: value,
+      }));
+    });
   };
 
   selectedText(value) {
@@ -62,10 +67,10 @@ export default class AutoCompleteSearch extends React.Component {
   render() {
     const { text, suggestions } = this.state;
     return (
-      <div id="notebooks">
+      <div id="search-container">
         <h2>Search movies</h2>
         <input
-          id="query"
+          id="search-input"
           type="text"
           onChange={this.onTextChange}
           value={text}

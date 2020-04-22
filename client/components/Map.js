@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import {
-  Map,
-  GoogleApiWrapper,
-  GoogleMapReact,
-  InfoWindow,
-  Marker,
-} from "google-maps-react";
+import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
 import Modal from "react-modal";
-import axios from "axios";
-var querystring = require("querystring");
 import { Button } from "react-bootstrap";
 
 const mapStyles = {
@@ -29,17 +21,20 @@ export class MapContainer extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
+
   openModal() {
     this.setState({
       modalIsOpen: true,
     });
   }
+
   closeModal() {
     this.setState({
       modalIsOpen: false,
       movie: "",
     });
   }
+
   componentDidMount() {
     this.setState({
       movie: this.props.data[0],

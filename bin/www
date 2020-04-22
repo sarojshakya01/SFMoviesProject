@@ -1,5 +1,5 @@
 const app = require('../server/server');
 const port = 3000
 app.listen(port, function() {
-	console.log('running at localhost: ' + port);
+	console.log('Server Running at localhost:' + port);
 });
