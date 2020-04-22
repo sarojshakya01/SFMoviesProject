@@ -23,7 +23,7 @@ router.get("/movies", function (req, res) {
 });
 
 /* this request is used as a process to prepare a final collection sfmoviesdetail */
-router.get("/mergeNCreate", function (req, res) {
+router.get("/api/mergeNCreate", function (req, res) {
   SFMov.aggregate([
     {
       $lookup: {
@@ -50,7 +50,7 @@ router.get("/mergeNCreate", function (req, res) {
 });
 
 /* this request is used as a process to prepare a final collection sfmoviesdetail */
-router.get("/mergeFinal", function (req, res) {
+router.get("/api/mergeFinal", function (req, res) {
   Movies.aggregate([
     {
       $lookup: {
