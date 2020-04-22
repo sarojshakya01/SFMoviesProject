@@ -22,6 +22,7 @@ router.get("/movies", function (req, res) {
   }
 });
 
+/* this request is used as a process to prepare a final collection sfmoviesdetail */
 router.get("/mergeNCreate", function (req, res) {
   SFMov.aggregate([
     {
@@ -48,6 +49,7 @@ router.get("/mergeNCreate", function (req, res) {
   });
 });
 
+/* this request is used as a process to prepare a final collection sfmoviesdetail */
 router.get("/mergeFinal", function (req, res) {
   Movies.aggregate([
     {
@@ -70,18 +72,6 @@ router.get("/mergeFinal", function (req, res) {
     console.log(result);
     console.log("New collection sfmoviesdetail created!");
     res.send("New collection sfmoviesdetail created!");
-  });
-});
-
-router.get("/maps", function (req, res) {
-  const movie = req.query.movie;
-  SFMovies.find({ title: movie }, { _id: 0, title: 1, actor_1: 1 }, function (
-    err,
-    movies
-  ) {
-    if (err) res.send(err);
-    // res.json(movies);
-    console.log(movies);
   });
 });
 
