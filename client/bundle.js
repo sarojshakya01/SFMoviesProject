@@ -41455,7 +41455,30 @@ var AutoCompleteSearch = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
 
-    _defineProperty(_assertThisInitialized(_this), "onFocusInput", function (elem) {
+    _defineProperty(_assertThisInitialized(_this), "onFocusLoadList", function (elem) {
+      var value = elem.target.value.toLowerCase();
+      var suggestions = [];
+      var allMovieList = _this.state.allMovieList;
+
+      if (value === "") {
+        suggestions = allMovieList;
+      } else if (value.length > 0) {
+        var regex = new RegExp(value);
+        suggestions = allMovieList.sort().filter(function (v) {
+          return regex.test(v.toLowerCase());
+        });
+      }
+
+      _this.setState(function () {
+        return {
+          allMovieList: allMovieList,
+          suggestions: suggestions,
+          text: value
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onFocusSendRequestAndLoadList", function (elem) {
       var value = elem.target.value.toLowerCase();
       var suggestions = [];
       var allMovieList = [];
@@ -41533,12 +41556,29 @@ var AutoCompleteSearch = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(AutoCompleteSearch, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var allMovieList = [];
+      var that = this;
+      __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get("/movies?title=").then(function (response) {
+        for (var i = 0; i < response.data.length; i++) {
+          allMovieList.push(response.data[i].title);
+        }
+
+        that.setState(function () {
+          return {
+            allMovieList: allMovieList,
+            suggestions: []
+          };
+        });
+      });
+    }
+  }, {
     key: "selectedText",
     value: function selectedText(value) {
       this.setState(function () {
         return {
           text: value,
-          allMovieList: [],
           suggestions: []
         };
       });
@@ -41558,7 +41598,9 @@ var AutoCompleteSearch = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2", null, "Search movies"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
         id: "search-input",
         type: "text",
-        onFocus: this.onFocusInput,
+        placeholder: "Enter a movie name" // onFocus={this.onFocusLoadList}
+        ,
+        onFocus: this.onFocusSendRequestAndLoadList,
         onChange: this.onTextChange,
         value: text
       }), this.renderSuggestions(), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", null, "Suggestions: ", suggestions.length));

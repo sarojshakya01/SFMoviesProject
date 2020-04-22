@@ -11,7 +11,44 @@ export default class AutoCompleteSearch extends React.Component {
     };
   }
 
-  onFocusInput = (elem) => {
+  componentDidMount() {
+    let allMovieList = [];
+    const that = this;
+
+    axios.get("/movies?title=").then(function (response) {
+      for (var i = 0; i < response.data.length; i++) {
+        allMovieList.push(response.data[i].title);
+      }
+
+      that.setState(() => ({
+        allMovieList: allMovieList,
+        suggestions: [],
+      }));
+    });
+  }
+
+  onFocusLoadList = (elem) => {
+    const value = elem.target.value.toLowerCase();
+    let suggestions = [];
+    let allMovieList = this.state.allMovieList;
+
+    if (value === "") {
+      suggestions = allMovieList;
+    } else if (value.length > 0) {
+      const regex = new RegExp(value);
+      suggestions = allMovieList
+        .sort()
+        .filter((v) => regex.test(v.toLowerCase()));
+    }
+
+    this.setState(() => ({
+      allMovieList: allMovieList,
+      suggestions: suggestions,
+      text: value,
+    }));
+  };
+
+  onFocusSendRequestAndLoadList = (elem) => {
     const value = elem.target.value.toLowerCase();
     let suggestions = [];
     let allMovieList = [];
@@ -61,7 +98,6 @@ export default class AutoCompleteSearch extends React.Component {
   selectedText(value) {
     this.setState(() => ({
       text: value,
-      allMovieList: [],
       suggestions: [],
     }));
 
@@ -95,7 +131,9 @@ export default class AutoCompleteSearch extends React.Component {
         <input
           id="search-input"
           type="text"
-          onFocus={this.onFocusInput}
+          placeholder="Enter a movie name"
+          onFocus={this.onFocusLoadList}
+          // onFocus={this.onFocusSendRequestAndLoadList}
           onChange={this.onTextChange}
           value={text}
         />

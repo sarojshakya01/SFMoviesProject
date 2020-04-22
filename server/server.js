@@ -14,7 +14,10 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
 app.use("/", router);
 
-const uri = "mongodb://127.0.0.1:27017/SFData";
+const uri =
+  "mongodb+srv://sarojsh:sarojsh@cluster0-jb3wc.gcp.mongodb.net/SFData";
+
+// const uri = "mongodb://127.0.0.1:27017/SFData";
 
 mongoose
   .connect(uri, {
@@ -29,16 +32,11 @@ const db = mongoose.connection;
 
 db.on(
   "error",
-  console.error.bind(
-    console,
-    "Database Connection Error at 127.0.0.1:27017/SFData"
-  )
+  console.error.bind(console, "Database Connection Error at " + uri)
 );
 
 db.once("open", function (callback) {
-  console.log(
-    "Database 'SFDtata' Connected Successfully at 127.0.0.1:27017/SFData"
-  );
+  console.log("Database 'SFDtata' Connected Successfully at " + uri);
 });
 
 // used as alternative of mangoose for testing purpose
