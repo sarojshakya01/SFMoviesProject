@@ -5,43 +5,66 @@ export default class AutoCompleteSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      suggestions: [],
       text: "",
+      suggestions: [],
+      allMovieList: [],
     };
   }
 
-  onTextChange = (elem) => {
+  onFocusInput = (elem) => {
     const value = elem.target.value.toLowerCase();
     let suggestions = [];
+    let allMovieList = [];
     const that = this;
+
     axios.get("/movies?title=").then(function (response) {
       that.props.changeState(response.data);
 
       for (var i = 0; i < response.data.length; i++) {
-        suggestions.push(response.data[i].title);
+        allMovieList.push(response.data[i].title);
       }
 
       if (value === "") {
-        suggestions = suggestions;
+        suggestions = allMovieList;
       } else if (value.length > 0) {
         const regex = new RegExp(value);
-        suggestions = suggestions
+        suggestions = allMovieList
           .sort()
           .filter((v) => regex.test(v.toLowerCase()));
       }
 
       that.setState(() => ({
-        suggestions,
+        allMovieList: allMovieList,
+        suggestions: suggestions,
         text: value,
       }));
     });
   };
 
+  onTextChange = (elem) => {
+    const value = elem.target.value.toLowerCase();
+    let suggestions = this.state.allMovieList;
+
+    if (value.length > 0) {
+      const regex = new RegExp(value);
+      suggestions = suggestions
+        .sort()
+        .filter((v) => regex.test(v.toLowerCase()));
+    }
+
+    this.setState(() => ({
+      suggestions: suggestions,
+      text: value,
+    }));
+  };
+
   selectedText(value) {
     this.setState(() => ({
       text: value,
+      allMovieList: [],
       suggestions: [],
     }));
+
     const that = this;
     axios.get("/movies?title=" + value).then(function (response) {
       that.props.changeState(response.data);
@@ -72,6 +95,7 @@ export default class AutoCompleteSearch extends React.Component {
         <input
           id="search-input"
           type="text"
+          onFocus={this.onFocusInput}
           onChange={this.onTextChange}
           value={text}
         />
