@@ -41577,7 +41577,7 @@ var App = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__DataTable__["a" /* default */], {
         data: this.state.data
       })) : /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-        class: "loader"
+        className: "loader"
       });
     }
   }]);
@@ -42597,8 +42597,7 @@ var AutoCompleteSearch = /*#__PURE__*/function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Map__ = __webpack_require__(206);
-var _this2 = this;
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MovieRow__ = __webpack_require__(342);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42626,6 +42625,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var DataTable = /*#__PURE__*/function (_React$Component) {
   _inherits(DataTable, _React$Component);
 
@@ -42638,51 +42638,39 @@ var DataTable = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
 
-    _defineProperty(_assertThisInitialized(_this), "getRowsData", function () {
-      var items = this.props.data;
-      var that = this;
-      return items.map(function (row, index) {
-        var mydata = [];
-        mydata.push(row.title);
-        mydata.push(row.description);
-        return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tr", {
-          key: index
-        }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(RenderRow, {
+    _defineProperty(_assertThisInitialized(_this), "renderRowsData", function () {
+      var moviesList = _this.props.data;
+      var renderMovieListRows = moviesList.map(function (movie, index) {
+        return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__MovieRow__["a" /* default */], {
           key: index,
-          data: mydata,
-          comp: that,
-          index: index
-        }));
+          movieName: movie.title,
+          index: index,
+          openModal: _this.openModal
+        });
       });
+      return renderMovieListRows;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setOpenModal", function (e) {
+    _defineProperty(_assertThisInitialized(_this), "openModal", function (e) {
       var index = e.currentTarget.getAttribute("index");
 
       _this.child.current.openModal(index);
     });
 
     _this.child = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createRef();
-    _this.getRowData = _this.getRowsData.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(DataTable, [{
     key: "render",
     value: function render() {
-      var that = this;
-      return [/*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-        key: 0,
+      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Fragment, null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
         id: "datatable"
-      }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("thead", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tr", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("th", {
-        key: "movies"
-      }, "Movies"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("th", {
-        key: "map"
-      }, "Map"))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, this.getRowsData()))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Map__["a" /* default */], {
+      }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("thead", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tr", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("th", null, "Movies"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("th", null, "Map"))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tbody", null, this.renderRowsData()))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Map__["a" /* default */], {
         key: 1,
         data: this.props.data,
         ref: this.child
-      })];
+      }));
     }
   }]);
 
@@ -42690,30 +42678,6 @@ var DataTable = /*#__PURE__*/function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 
-
-var RenderRow = function RenderRow(props) {
-  var that = props.comp;
-  var index = props.index;
-  return props.data.map(function (movies, i) {
-    if (i == 0) {
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", {
-        key: i
-      }, movies);
-    } else {
-      return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", {
-        key: i
-      }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-        index: index,
-        onClick: that.setOpenModal.bind(_this2)
-      }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", {
-        alt: "map",
-        src: "../img/map.png",
-        width: "25",
-        height: "25"
-      })));
-    }
-  });
-};
 
 /***/ }),
 /* 206 */
@@ -42846,7 +42810,7 @@ var MapContainer = /*#__PURE__*/function (_Component) {
       });
     });
 
-    _this.KEY = "AIzaSyBrX6PgieG65DkgD9G0CYPYcG7Uk2YK4nM";
+    _this.KEY = "<GOOGLE_MAP_API_KEY>";
     _this.center = sanfrancisco;
     _this.zoom = 12;
     _this.state = {
@@ -53924,6 +53888,32 @@ Toast.displayName = 'Toast';
 Toast.Body = __WEBPACK_IMPORTED_MODULE_7__ToastBody__["a" /* default */];
 Toast.Header = __WEBPACK_IMPORTED_MODULE_6__ToastHeader__["a" /* default */];
 /* unused harmony default export */ var _unused_webpack_default_export = (Toast);
+
+/***/ }),
+/* 342 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var MovieRow = function MovieRow(props) {
+  var movieName = props.movieName,
+      openModal = props.openModal,
+      index = props.index;
+  return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("tr", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", null, movieName), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("td", null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+    index: index,
+    onClick: openModal
+  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", {
+    alt: "map",
+    src: "../img/map.png",
+    width: "25",
+    height: "25"
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (MovieRow);
 
 /***/ })
 /******/ ]);

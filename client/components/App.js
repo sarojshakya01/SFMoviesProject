@@ -29,7 +29,7 @@ class App extends Component {
         <DataTable data={this.state.data} />
       </div>
     ) : (
-      <div class="loader"></div>
+      <div className="loader"></div>
     );
   }
 }
