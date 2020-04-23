@@ -4,26 +4,34 @@ import Map from "./Map";
 export default class DataTable extends React.Component {
   constructor(props) {
     super(props);
+    this.child = React.createRef();
     this.getRowData = this.getRowsData.bind(this);
   }
 
   getRowsData = function () {
-    var items = this.props.data;
+    const items = this.props.data;
+    const that = this;
     return items.map((row, index) => {
       var mydata = [];
       mydata.push(row.title);
       mydata.push(row.description);
       return (
         <tr key={index}>
-          <RenderRow key={index} data={mydata} />
+          <RenderRow key={index} data={mydata} comp={that} index={index} />
         </tr>
       );
     });
   };
 
+  setOpenModal = (e) => {
+    const index = e.currentTarget.getAttribute("index");
+    this.child.current.openModal(index);
+  };
+
   render() {
-    return (
-      <div id="datatable">
+    const that = this;
+    return [
+      <div key={0} id="datatable">
         <table>
           <thead>
             <tr>
@@ -33,19 +41,25 @@ export default class DataTable extends React.Component {
           </thead>
           <tbody>{this.getRowsData()}</tbody>
         </table>
-      </div>
-    );
+      </div>,
+      <Map key={1} data={this.props.data} ref={this.child} />,
+    ];
   }
 }
 
 const RenderRow = (props) => {
-  return props.data.map((data, index) => {
-    if (index == 0) {
-      return <td key={index}>{props.data[index]}</td>;
+  const that = props.comp;
+  const index = props.index;
+
+  return props.data.map((movies, i) => {
+    if (i == 0) {
+      return <td key={i}>{movies}</td>;
     } else {
       return (
-        <td key={index}>
-          <Map data={props.data} />
+        <td key={i}>
+          <div index={index} onClick={that.setOpenModal.bind(this)}>
+            <img alt="map" src="../img/map.png" width="25" height="25"></img>
+          </div>
         </td>
       );
     }

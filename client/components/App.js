@@ -7,6 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isDataFetched: false,
       data: [],
     };
   }
@@ -17,16 +18,18 @@ class App extends Component {
   componentDidMount() {
     const that = this;
     axios.get("/movies").then(function (response) {
-      that.setState({ data: response.data });
+      that.setState({ isDataFetched: true, data: response.data });
     });
   }
 
   render() {
-    return (
+    return this.state.isDataFetched ? (
       <div className="App">
         <AutoCompleteSearch changeState={this.changeState} />
         <DataTable data={this.state.data} />
       </div>
+    ) : (
+      <div class="loader"></div>
     );
   }
 }

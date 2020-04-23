@@ -1,7 +1,5 @@
 visit My linkedin profile [here](https://www.linkedin.com/in/saroj-shakya)
 
-Check out SF Movies at [here](http://shakyasaroj.com.np).
-
 After cloning(or downloading and extracting) the project, go to the project directory and run
 
 ### `npm start`
@@ -56,4 +54,8 @@ Since the available dataset doesnot have the lattitude and longitude information
 
 Initially I tried to host the mongodb database server on MongoDB Atlas, but due to connection problem, I hosted db server locally. So a folder named db is added to keep a database collection for the referece. In db folder, sfmovies.json is original data from the [DataSF : Film Locations](https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am). sfmoviesdetal.json is a collection I used in this project. So the user need to host the mongodb and import the sfmoviesdetail.json file in [SFData] database.
 
-If I spent some additional time on this project, I would add animation on google map to show the street view, I would add the images of particular movies on database to show it on the map and autocomplete search.
+### Sorted out Cloud DB connection problem
+
+The problem in connection to cloud database is found to have due to the network configuration. This problem has now been sorted out. So I have used cloud database but it caused quite slow response.
+
+If I spent some additional time on this project, I would add animation on google map to show the street view, I would add the images of particular movies on database to show it on the map and autocomplete search. I would also add the pagination. I would host the static site if I spent some more time on it.
